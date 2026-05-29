@@ -1,0 +1,27 @@
+<%= form_with url: tweet_replies_path(tweet), id: "reply-form",
+    data: { controller: "compose", action: "turbo:submit-end->compose#reset" } do |f| %>
+  <div class="flex gap-3">
+    <div class="shrink-0">
+      <div class="w-10 h-10 rounded-full bg-zinc-700 flex items-center justify-center text-sm font-bold">
+        <%= Current.user.display_name&.first&.upcase || Current.user.username.first.upcase %>
+      </div>
+    </div>
+    <div class="flex-1" data-controller="character-counter">
+      <%= f.text_area :body,
+          name: "tweet[body]",
+          placeholder: "Post your reply",
+          class: "w-full bg-transparent resize-none text-lg outline-none placeholder-zinc-600",
+          rows: 2,
+          maxlength: 280,
+          data: {
+            character_counter_target: "input",
+            action: "input->character-counter#update input->compose#autoResize"
+          } %>
+      <div class="flex items-center justify-between mt-2 pt-2 border-t border-zinc-800">
+        <span data-character-counter-target="counter" class="text-zinc-500 text-sm">280</span>
+        <%= f.submit "Reply", class: "bg-sky-500 hover:bg-sky-400 disabled:opacity-50 text-white font-bold px-5 py-1.5 rounded-full cursor-pointer transition-colors",
+            data: { character_counter_target: "submit" } %>
+      </div>
+    </div>
+  </div>
+<% end %>

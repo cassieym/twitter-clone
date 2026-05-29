@@ -1,0 +1,17 @@
+<span id="follow-user-<%= user.id %>">
+  <% if user == Current.user %>
+    <%= link_to "Edit profile", edit_user_path(user),
+        class: "border border-zinc-600 rounded-full px-4 py-1.5 font-bold text-sm hover:bg-zinc-900 transition-colors" %>
+  <% elsif Current.user.following?(user) %>
+    <% follow = Current.user.active_follows.find_by(followed: user) %>
+    <%= button_to user_follow_path(user, follow), method: :delete,
+        class: "border border-zinc-600 rounded-full px-4 py-1.5 font-bold text-sm hover:border-red-500 hover:text-red-500 transition-colors" do %>
+      Following
+    <% end %>
+  <% else %>
+    <%= button_to user_follows_path(user), method: :post,
+        class: "bg-white text-black rounded-full px-4 py-1.5 font-bold text-sm hover:bg-zinc-200 transition-colors" do %>
+      Follow
+    <% end %>
+  <% end %>
+</span>

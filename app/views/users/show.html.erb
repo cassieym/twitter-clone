@@ -1,0 +1,30 @@
+<div class="border-b border-zinc-800">
+  <div class="h-32 bg-zinc-800"></div>
+  <div class="px-4 pb-4">
+    <div class="flex justify-between items-start -mt-6 mb-3">
+      <div class="w-16 h-16 rounded-full bg-zinc-600 border-4 border-black flex items-center justify-center text-xl font-bold">
+        <%= @user.display_name&.first&.upcase || @user.username.first.upcase %>
+      </div>
+      <%= render "users/follow_button", user: @user %>
+    </div>
+    <h1 class="font-bold text-xl"><%= @user.display_name.presence || @user.username %></h1>
+    <p class="text-zinc-500">@<%= @user.username %></p>
+    <% if @user.bio.present? %>
+      <p class="mt-2"><%= @user.bio %></p>
+    <% end %>
+    <div class="flex gap-4 mt-3 text-sm">
+      <span><strong><%= @user.following.count %></strong> <span class="text-zinc-500">Following</span></span>
+      <span><strong><%= @user.followers.count %></strong> <span class="text-zinc-500">Followers</span></span>
+    </div>
+  </div>
+</div>
+
+<div id="tweets">
+  <% if @tweets.empty? %>
+    <div class="p-8 text-center text-zinc-500">
+      <p>No tweets yet.</p>
+    </div>
+  <% else %>
+    <%= render @tweets %>
+  <% end %>
+</div>

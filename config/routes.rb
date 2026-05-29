@@ -6,4 +6,13 @@ Rails.application.routes.draw do
   resource :registration, only: [ :new, :create ]
   resource :session, only: [ :new, :create, :destroy ]
   resources :passwords, param: :token
+
+  resources :tweets, only: [ :show, :create, :destroy ] do
+    resources :likes, only: [ :create, :destroy ]
+    resources :replies, only: [ :create ]
+  end
+
+  resources :users, only: [ :show, :edit, :update ] do
+    resources :follows, only: [ :create, :destroy ]
+  end
 end

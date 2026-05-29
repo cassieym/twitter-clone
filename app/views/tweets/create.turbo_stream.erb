@@ -1,0 +1,2 @@
+<%= turbo_stream.prepend "tweets", partial: "tweets/tweet", locals: { tweet: @tweet } %>
+<%= turbo_stream.replace "tweet-compose-form", partial: "tweets/form", locals: { tweet: Tweet.new } %>

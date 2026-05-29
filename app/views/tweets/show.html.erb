@@ -1,0 +1,52 @@
+<div class="border-b border-zinc-800 p-4 flex items-center gap-3">
+  <%= link_to root_path, class: "text-zinc-400 hover:text-white transition-colors" do %>
+    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+    </svg>
+  <% end %>
+  <h1 class="text-xl font-bold">Thread</h1>
+</div>
+
+<%# Ancestor chain %>
+<% @ancestors.each do |ancestor| %>
+  <div class="relative">
+    <%= render "tweets/tweet", tweet: ancestor %>
+    <div class="absolute left-[31px] top-[72px] bottom-0 w-0.5 bg-zinc-700"></div>
+  </div>
+<% end %>
+
+<%# Focal tweet %>
+<div class="border-b border-zinc-800 p-4 flex gap-3">
+  <div class="shrink-0">
+    <div class="w-10 h-10 rounded-full bg-zinc-700 flex items-center justify-center text-sm font-bold">
+      <%= @tweet.user.display_name&.first&.upcase || @tweet.user.username.first.upcase %>
+    </div>
+  </div>
+  <div class="flex-1">
+    <div class="flex items-center gap-2">
+      <%= link_to user_path(@tweet.user), class: "font-bold hover:underline" do %>
+        <%= @tweet.user.display_name.presence || "@#{@tweet.user.username}" %>
+      <% end %>
+      <span class="text-zinc-500">@<%= @tweet.user.username %></span>
+    </div>
+    <p class="mt-2 text-xl break-words"><%= @tweet.body %></p>
+    <p class="text-zinc-500 text-sm mt-2"><%= @tweet.created_at.strftime("%-I:%M %p · %b %-d, %Y") %></p>
+    <div class="flex items-center gap-6 mt-3 pt-3 border-t border-zinc-800 text-zinc-500 text-sm">
+      <span><strong class="text-white"><%= @tweet.replies_count %></strong> Replies</span>
+      <span><strong class="text-white"><%= @tweet.likes_count %></strong> Likes</span>
+    </div>
+    <div class="flex items-center gap-6 mt-3 pt-3 border-t border-zinc-800">
+      <%= render "tweets/like_button", tweet: @tweet %>
+    </div>
+  </div>
+</div>
+
+<%# Reply form %>
+<div id="reply-form" class="border-b border-zinc-800 p-4">
+  <%= render "tweets/reply_form", tweet: @tweet, reply: @reply %>
+</div>
+
+<%# Replies %>
+<div id="replies">
+  <%= render @replies %>
+</div>

@@ -1,0 +1,2 @@
+<%= turbo_stream.append "replies", partial: "tweets/tweet", locals: { tweet: @reply } %>
+<%= turbo_stream.replace "reply-form", partial: "tweets/reply_form", locals: { tweet: @tweet, reply: Tweet.new(parent: @tweet) } %>

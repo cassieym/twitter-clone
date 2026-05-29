@@ -1,3 +1,15 @@
-<div class="p-4 border-b border-zinc-800">
-  <h1 class="text-xl font-bold">Home</h1>
+<div class="border-b border-zinc-800 p-4">
+  <h1 class="text-xl font-bold mb-4">Home</h1>
+  <%= render "tweets/form", tweet: @tweet %>
 </div>
+
+<% if @tweets.empty? %>
+  <div class="p-8 text-center text-zinc-500">
+    <p class="text-lg">Nothing here yet.</p>
+    <p class="text-sm mt-1">Follow some people to see their tweets.</p>
+  </div>
+<% else %>
+  <div id="tweets">
+    <%= render @tweets %>
+  </div>
+<% end %>
