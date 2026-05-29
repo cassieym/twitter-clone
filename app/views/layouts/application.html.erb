@@ -22,7 +22,33 @@
   <body class="bg-black text-white min-h-screen">
     <div class="max-w-7xl mx-auto flex">
       <%# Left sidebar (nav) %>
-      <div class="hidden sm:flex flex-col w-16 xl:w-72 shrink-0 sticky top-0 h-screen">
+      <div class="hidden sm:flex flex-col w-16 xl:w-72 shrink-0 sticky top-0 h-screen p-3 justify-between">
+        <% if authenticated? %>
+          <div class="flex flex-col gap-1">
+            <%= link_to root_path, class: "flex items-center gap-4 p-3 rounded-full hover:bg-zinc-900 transition-colors w-fit" do %>
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.742l7.732-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+              </svg>
+              <span class="hidden xl:block text-xl font-bold">Home</span>
+            <% end %>
+
+            <%= link_to user_path(Current.user), class: "flex items-center gap-4 p-3 rounded-full hover:bg-zinc-900 transition-colors w-fit" do %>
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
+              </svg>
+              <span class="hidden xl:block text-xl">Profile</span>
+            <% end %>
+          </div>
+
+          <div>
+            <%= button_to session_path, method: :delete, class: "flex items-center gap-4 p-3 rounded-full hover:bg-zinc-900 transition-colors w-full text-left" do %>
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15M12 9l-3 3m0 0l3 3m-3-3h12.75" />
+              </svg>
+              <span class="hidden xl:block text-xl">Log out</span>
+            <% end %>
+          </div>
+        <% end %>
       </div>
 
       <%# Main feed column %>
